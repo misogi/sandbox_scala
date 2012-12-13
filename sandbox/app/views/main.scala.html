@@ -1,5 +1,8 @@
-@(title: String)(content: Html)
-
+@(title: String)(content: Html)(implicit request: play.api.mvc.Request[AnyContent])
+@if(request.headers.keys("X-PJAX")) {
+  <title>@title</title>
+  @content
+} else {
 <!DOCTYPE html>
 
 <html>
@@ -7,9 +10,22 @@
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
     </head>
     <body>
-        @content
+        <a href='/' data-pjax='#main'>index</a>
+        <a href='/explore' data-pjax='#main'>Explore</a>
+        <strong id="time"></strong>
+        <div id='main'>
+          @content
+        </div>
+        <script src="@routes.Assets.at("javascripts/jquery-1.8.3.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/jquery.pjax.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(function() {
+        $('#time').text(new Date().toLocaleString());
+        $('a[data-pjax]').pjax();
+      })
+    </script>
     </body>
 </html>
+}
