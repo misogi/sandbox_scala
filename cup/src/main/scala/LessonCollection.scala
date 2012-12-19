@@ -183,4 +183,44 @@ object LessonCollection{
 
     List(bf, bf1)
   }
+
+  // 24.6 集合
+  def set = {
+    val p = new scala.collection.mutable.ListBuffer[Any]
+    val xs = Set("apple", "orange", "peach", "banana")
+    val ys = Set("apple", "peach", "meron")
+    p += xs contains "apple"
+    p += xs("orange")
+    p += ys subsetOf xs
+    p += xs + "cherry"
+    p += xs + ("watermeron", "meron")
+    p += xs ++ ys
+    p += xs - "orange"
+    p += xs -- ys
+    p += xs.empty
+
+    //same
+    p += xs & ys
+    p += xs intersect ys
+
+    //same
+    p += xs | ys
+    p += xs union ys
+
+    p += xs &~ ys
+    p += xs diff ys
+
+    // ordered numbers
+    val myOrdering = Ordering.fromLessThan[String](_ > _)
+    val ts = scala.collection.immutable.TreeSet.empty(myOrdering)
+    p += ts
+    val nums = ts + ("one", "two", "three", "four")
+    p += nums
+    p += nums range ("two", "one")
+    p += nums from "three"
+
+    p.toList
+  }
+
+
 }
