@@ -222,5 +222,51 @@ object LessonCollection{
     p.toList
   }
 
+  def map = {
+    val p = new scala.collection.mutable.ListBuffer[Any]
+    // immutable
+    val ms = Map("cat" -> 1, "x" -> 3, "y" -> 5)
+    p += ms get "cat"
+    p += ms("x")
+    p += ms getOrElse("t", 30)
+    p += ms contains "x"
+    p += ms isDefinedAt "y"
+    p += ms + ("dog" -> 4, "t" -> 6)
+    val ks = Map("bird" -> 8)
+    p += ms ++ ks
+    p += ms updated ("penguin", 9)
+    p += ms - "cat"
+    p += ms - ("x", "y")
+    p += ms -- List("cat", "x")
+    p += ms.keys
+    p += ms.keySet
+    p += ms.keysIterator
+    p += ms.values
+    p += ms.valuesIterator
 
+    p += ms filterKeys (_ == "x")
+    p += ms mapValues (x => x * x)
+
+    // mutable
+    val mms = scala.collection.mutable.Map("a"->3, "b"->10, "c"->7)
+    mms("b") = 22
+    println(mms)
+    mms += ("cat" -> 45)
+    println(mms)
+    mms put ("dog", 52)
+    println(mms)
+    mms getOrElseUpdate("penguin", 69)
+    println(mms)
+    mms -= "b"
+    println(mms)
+    mms --= List("a", "c")
+    println(mms)
+    mms retain ((x,y) => x == y)
+    println(mms)
+    mms += ("cat" -> 45)
+    mms transform ((x: String,y: Int) => y * y)
+    println(mms)
+
+    p.toList
+  }
 }
