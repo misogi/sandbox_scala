@@ -1,5 +1,6 @@
 // chapter 24
 object LessonCollection{
+
     // 24.3
   def tra = {
     val buf = new scala.collection.mutable.ListBuffer[Any]
@@ -82,6 +83,7 @@ object LessonCollection{
     buf.toList
   }
 
+  // 24.4
   def ite = {
     val buf = new scala.collection.mutable.ListBuffer[Any]
     val it = Iterable(1,2,3,4,5)
@@ -102,6 +104,60 @@ object LessonCollection{
     buf += it.zipWithIndex
 
     buf += it sameElements xt
+
+    buf.toList
+  }
+
+  // 24.5
+  def seq = {
+    val buf = new scala.collection.mutable.ListBuffer[Any]
+    val xs = Seq(6,9,7,11,10)
+    val ys = Seq(21,25,23)
+
+    buf += xs(2)
+    buf += xs isDefinedAt 5
+    buf += xs.length
+    buf += xs lengthCompare 4
+    buf += xs.indices
+
+    buf += xs indexOf 11
+    buf += xs lastIndexOf 7
+    buf += xs indexOfSlice ys
+    buf += xs lastIndexOfSlice ys
+    buf += xs indexWhere (_ > 8)
+    buf += xs segmentLength (_ > 9, 3)
+    buf += xs prefixLength (_ < 10)
+
+    buf += 3 +: xs
+    buf += xs :+ 1
+
+    buf += xs padTo(9, 30)
+
+    buf += xs patch(1,ys,3)
+    buf += xs updated (3, 33)
+    // xs(3) = 34
+    //
+    buf += xs.sorted
+    buf += xs sortWith (_<_)
+    buf += xs sortBy (x => x % 9)
+
+    buf += xs.reverse
+    buf += xs.reverseIterator
+    buf += xs reverseMap (x => x % 9)
+
+    buf += xs startsWith ys
+    buf += xs endsWith ys
+
+    buf += xs contains 7
+    buf += xs containsSlice ys
+    buf += (xs corresponds ys)(_>_)
+
+    val as = Seq(1,1,2,3,4)
+    val bs = Seq(3,4,5)
+    buf += as intersect bs
+    buf += as diff bs
+    buf += as union bs
+    buf += as.distinct
 
     buf.toList
   }
