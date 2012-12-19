@@ -1,7 +1,7 @@
 object LessonCollection{
   def tra = {
     val buf = new scala.collection.mutable.ListBuffer[Any]
-    val xs = Traversable(1,2,3,4)
+    val xs = Traversable(1,2,3,4,3)
     val ys = Traversable(4,5,6,7)
     def pla(x: Int): Int = x + 1
     buf += xs ++ ys
@@ -12,6 +12,43 @@ object LessonCollection{
 
     val pf: PartialFunction[Int, String] = {case 2 => "two"}
     buf += xs collect pf
+
+    buf += xs.toArray
+    buf += xs.toList
+    buf += xs.toIterable
+    buf += xs.toStream
+    buf += xs.toSet
+    // buf += xs.toMap
+
+    val dest = Traversable(2,3,4)
+    xs copyToBuffer buf
+
+    buf += xs.isEmpty
+    buf += xs.nonEmpty
+    buf += xs.size
+    buf += xs.hasDefiniteSize
+
+    buf += xs.head
+    buf += xs.headOption
+    buf += xs.last
+    buf += xs.lastOption
+    buf += xs find (_ == 2)
+
+    buf += xs.tail
+    buf += xs.init
+    buf += xs slice (1,2)
+    buf += xs take 3
+    buf += xs drop 2
+    buf += xs takeWhile (_<=2)
+    buf += xs dropWhile (_==2)
+    buf += xs filter (_>2)
+    buf += xs withFilter (_>3)
+    buf += xs filterNot (_>2)
+
+    buf += xs splitAt 2
+    buf += xs span (_==2)
+    buf += xs partition (_>2)
+    buf += xs groupBy (_>2)
 
     buf.toList
   }
