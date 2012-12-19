@@ -1,4 +1,6 @@
+// chapter 24
 object LessonCollection{
+    // 24.3
   def tra = {
     val buf = new scala.collection.mutable.ListBuffer[Any]
     val xs = Traversable(1,2,3,4,3)
@@ -49,6 +51,33 @@ object LessonCollection{
     buf += xs span (_==2)
     buf += xs partition (_>2)
     buf += xs groupBy (_>2)
+
+    buf += xs forall (_==3)
+    buf += xs exists (_==3)
+    buf += xs count (_==3)
+
+    val z = 0
+    buf += (z /: xs)(_+_)
+    // similar to behind
+    buf += xs.foldLeft(z)(_+_)
+    buf += (xs :\ z)(_+_)
+    buf += xs.foldRight(z)(_+_)
+
+    buf += xs reduceLeft (_+_)
+    buf += xs reduceRight (_*_)
+
+    buf += xs.sum
+    buf += xs.product
+    buf += xs.min
+    buf += xs.max
+
+    val bu = new StringBuilder
+    buf += xs addString (bu, "[[", "+", "]]")
+    buf += xs mkString ("**(**", "@", "**)**")
+    buf += xs.stringPrefix
+
+    buf += xs.view
+    buf += xs view (2,3)
 
     buf.toList
   }
