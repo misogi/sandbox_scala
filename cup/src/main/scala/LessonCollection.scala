@@ -366,4 +366,96 @@ object LessonCollection{
     map += (1 -> "make web")
     println(map)
   }
+
+  def arr = {
+    val p = new scala.collection.mutable.ListBuffer[Any]
+    val a1 = Array(1,2,3)
+    val a2 = a1 map (_*3)
+    val a3 = a2 filter (_%2 != 0)
+    val a4 = a3.reverse
+    p += (a1, a2, a3, a4)
+
+    val seq: Seq[Int] = a1
+    val a5: Array[Int] = seq.toArray
+    p += a1 eq a5
+
+    p.toList
+  }
+
+  def str = {
+    val st = "hello"
+    println(st.reverse)
+    println(st.map(_.toUpper))
+    println(st drop 3)
+    println(st slice (1, 4))
+    val s: Seq[Char] = st
+    println(s)
+  }
+
+  def lazyMap[T, U](coll: Iterable[T], f: T => U) = new Iterable[U] {
+    def iterator = coll.iterator map f
+  }
+
+  def testView = {
+    val p = new scala.collection.mutable.ListBuffer[Any]
+    val v = Vector(1 to 10: _*)
+    p += v map (_+1) map (_*2)
+    p += (v.view map (_+1) map (_*3)).force
+
+    val vv = v.view
+    p += vv
+    val vv1 = vv map (_+1)
+    p += vv1
+    val vv2 = vv1 map (_*3)
+    p += vv2
+    p += vv2.force
+
+    val arr = (0 to 9).toArray
+    val sarr = arr.view.slice(3,6)
+
+    def negate(xs: collection.mutable.Seq[Int]) = for (i <- 0 until xs.length) xs(i) = -xs(i)
+
+    negate(sarr)
+    p += sarr
+    p += arr
+
+    p.toList
+  }
+
+  // 24.16 iterator
+  def ite2 = {
+    val p = new scala.collection.mutable.ListBuffer[Any]
+
+    val it = Iterator("a", "num", "of", "words")
+    p += it.map(_.length)
+
+    it foreach println
+    // error!!!
+    //it.next()
+
+    val it2 = Iterator(1,2,3,4)
+    val bit = it2.buffered
+    p += bit.head
+    p += bit.next()
+    p += bit.next()
+
+    p.toList
+  }
+
+  // 24.17 factory
+  def factory = {
+    val p = new scala.collection.mutable.ListBuffer[Any]
+    p += List.empty
+    val xs = List(3,2,3)
+    p += xs
+    p += List.concat(xs, List(3,2))
+    p += List.fill(5)(6)
+    p += List.fill(2,3)(8)
+    p += List.tabulate(3)(x => x * x)
+    p += List.tabulate(4,2)((x,y) => (x+1) * (y*2))
+    p += List.range(4, 8)
+    p += List.iterate(2,3)(x => x +1)
+
+    p.toList
+  }
 }
