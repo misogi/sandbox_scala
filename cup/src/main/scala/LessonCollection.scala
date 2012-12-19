@@ -81,4 +81,28 @@ object LessonCollection{
 
     buf.toList
   }
+
+  def ite = {
+    val buf = new scala.collection.mutable.ListBuffer[Any]
+    val it = Iterable(1,2,3,4,5)
+    val xt = Iterable("a", "b", "c", "d", "e", "f")
+
+    val ite = it grouped 3
+    buf += ite.next()
+    buf += ite.next()
+    val sit = it sliding 3
+    buf += sit.next()
+    buf += sit.next()
+
+    buf += it takeRight 2
+    buf += it dropRight 2
+
+    buf += it zip xt
+    buf += it zipAll (xt, 8, "g")
+    buf += it.zipWithIndex
+
+    buf += it sameElements xt
+
+    buf.toList
+  }
 }
