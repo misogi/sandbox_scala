@@ -324,4 +324,46 @@ object LessonCollection{
 
     p.toList
   }
+
+  // 24.10 具象ミュータブルコレクション
+  def mc = {
+    // array
+    val ab = collection.mutable.ArrayBuffer.empty[Int]
+    ab += 1
+    println(ab)
+    println(ab.toArray)
+
+    // list
+    // string
+    val sb = new StringBuilder
+    sb += 'a'
+    println(sb)
+    sb ++= "bcdef"
+    println(sb)
+    println(sb.toString)
+
+    val q = new scala.collection.mutable.Queue[String]
+    q += "a"
+    println(q)
+    q ++= List("b", "c")
+    println(q)
+    println(q.dequeue)
+    println(q)
+
+    // stack
+    val st = new scala.collection.mutable.Stack[Int]
+    st.push(3)
+    println(st)
+    st.push(2)
+    println(st)
+    println(st.top)
+    println(st)
+    println(st.pop)
+    println(st)
+
+    // hash map
+    val map = collection.mutable.HashMap.empty[Int, String]
+    map += (1 -> "make web")
+    println(map)
+  }
 }
