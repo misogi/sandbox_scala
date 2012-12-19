@@ -222,6 +222,7 @@ object LessonCollection{
     p.toList
   }
 
+  // 24.7 写像
   def map = {
     val p = new scala.collection.mutable.ListBuffer[Any]
     // immutable
@@ -266,6 +267,60 @@ object LessonCollection{
     mms += ("cat" -> 45)
     mms transform ((x: String,y: Int) => y * y)
     println(mms)
+
+    p.toList
+  }
+
+  // 24.8 synchronized
+  def sync = {
+    // thread safe map
+    import scala.collection.mutable.{Map, SynchronizedMap, HashMap}
+    def makeMap: Map[String, String] = {
+      new HashMap[String, String] with SynchronizedMap[String, String] {
+        override def default(key: String) = "Why do you want to know?"
+      }
+    }
+    val capital = makeMap
+    capital ++= List("US" -> "washington")
+  }
+
+  // 24.9 具象イミュータブルコレクション
+  def imc = {
+    val p = new scala.collection.mutable.ListBuffer[Any]
+    val str = 1 #:: 2 #:: 3 #:: Stream.empty
+    p += str
+    def fibFrom(a: Int, b: Int): Stream[Int] = a #:: fibFrom(b, a + b)
+    val fibs = fibFrom(1,1).take(7)
+    p += fibs.toList
+
+    // vector
+    val vec = scala.collection.immutable.Vector.empty
+    val vec2 = vec :+ 1 :+ 2
+    val vec3 = 100 +: vec2
+    p += (vec, vec2, vec3)
+
+    // stack
+    val stk = scala.collection.immutable.Stack.empty
+    val hasOne = stk.push(1)
+    p += hasOne.top
+
+    // queue
+    val q = scala.collection.immutable.Queue[Int]()
+    val q1 = q.enqueue(1)
+    val q2 = q1.enqueue(List(2,3))
+    val (el, q3) = q2.dequeue
+    p += (q,q1,q2,el,q3)
+
+    //range
+    p += 1 to 3
+    p += 5 to 14 by 3
+    p += 1 until 4
+
+    // bitset
+    val bits = scala.collection.immutable.BitSet.empty
+    val bt = bits + 3 + 4 + 4
+    p += bt(4)
+    p += bt(0)
 
     p.toList
   }
