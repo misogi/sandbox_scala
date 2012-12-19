@@ -458,4 +458,17 @@ object LessonCollection{
 
     p.toList
   }
+
+  // 24.18 Java Convert
+  def fromJava = {
+    val p = new scala.collection.mutable.ListBuffer[Any]
+    import collection.JavaConversions._
+    import collection.mutable._
+    val jul: java.util.List[Int] = ArrayBuffer(1,2,3)
+    val buf: Seq[Int] = jul
+    val m: java.util.Map[String, Int] = HashMap("abc" -> 1, "hello" -> 2)
+    p += (jul,buf,m)
+
+    p.toList
+  }
 }
