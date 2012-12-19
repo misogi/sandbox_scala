@@ -161,4 +161,26 @@ object LessonCollection{
 
     buf.toList
   }
+
+  def buf = {
+    val p = new scala.collection.mutable.ListBuffer[Any]
+    val bf = scala.collection.mutable.Buffer(1)
+    bf += 2
+    bf += (3,4)
+    bf ++= List(5,6)
+    7 +=: bf
+    List(8,9) ++=: bf
+    bf insert (5, 10)
+    bf insertAll (8, List(11,12))
+
+    val bf1 = scala.collection.mutable.Buffer(1,2,3,4,5,6,7,8,9,10,11,12)
+    bf1 -= 1
+    bf1 remove 2
+    bf1 remove (3,3)
+    bf1 trimStart 2
+    bf1 trimEnd 2
+    // bf1.clear
+
+    List(bf, bf1)
+  }
 }
