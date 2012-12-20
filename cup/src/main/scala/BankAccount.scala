@@ -16,7 +16,6 @@ class BankAccount {
     }
 }
 
-
 class Thermometer {
   var celsius: Float = _
   def fahrenheit = celsius * 9 / 5 + 32
