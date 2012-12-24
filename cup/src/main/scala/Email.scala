@@ -15,9 +15,30 @@ object Twice {
   }
 }
 
+object UpperCase {
+  def unapply(s: String): Boolean = s.toUpperCase == s
+}
+
+object Domain {
+  def apply(parts: String*): String = parts.reverse.mkString(".")
+  def unapplySeq(whole: String): Option[Seq[String]] =
+    Some(whole.split("\\.").reverse)
+}
+
 object Matcher {
   def isMatch(s: String) = s match {
     case Twice(s) => "it's twice! " + s + s
     case Email(u,d) => "it's email! " + u + d
+  }
+
+  def userTwiceUpper(s: String) = s match {
+    case Email(Twice(x @ UpperCase()), domain) =>
+      "match: " + x + " in domain" + domain
+    case _ => "no match"
+  }
+
+  def isTomInDotCom(s: String): Boolean = s match {
+    case Email("tom", Domain("com", _*)) => true
+    case _ => false
   }
 }
