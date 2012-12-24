@@ -27,7 +27,7 @@ object RNA1 {
   // bits
   private val S = 2
   // group num
-  private val N = 32  S
+  private val N = 32
   // mask
   private val M = (1 << S) - 1
   def fromSeq(buf: Seq[Base]): RNA1 = {
