@@ -46,11 +46,11 @@ object XMLSamples {
 
     def fromXML(node: scala.xml.Node): CCTherm = new CCTherm {
       val description = (node \ "description").text
-      val yearMade = (node \ "yearMade").text
+      val yearMade = (node \ "yearMade").text.toInt
       val dateObtained = (node \ "dateObtained").text
-      val bookPrice = (node \ "bookPrice").text
-      val purchasePrice = (node \ "purchasePrice").text
-      val condition = (node \ "condition").text
+      val bookPrice = (node \ "bookPrice").text.toInt
+      val purchasePrice = (node \ "purchasePrice").text.toInt
+      val condition = (node \ "condition").text.toInt
     }
   }
 
