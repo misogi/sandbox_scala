@@ -1,3 +1,4 @@
+// chapter 26
 object Email extends ((String, String) => String) {
   def apply(user: String, domain: String) = user + "@" + domain
   def unapply(str: String): Option[(String, String)] = {
@@ -40,5 +41,27 @@ object Matcher {
   def isTomInDotCom(s: String): Boolean = s match {
     case Email("tom", Domain("com", _*)) => true
     case _ => false
+  }
+
+  def regexTest = {
+    val dec = """(-)?(\d+)(\.\d*)?""".r
+    val input = "for -1.0 to 99 by 3"
+    for (s <- dec findAllIn input)
+      println(s)
+    println(dec findFirstIn input)
+    println(dec findPrefixOf input)
+
+    val dec(sign, integerpart, decimalpart) = "-1.23"
+    println(sign)
+    println(integerpart)
+    println(decimalpart)
+
+    val dec(s2, i2, d2) = "1.0"
+    println(s2)
+    println(i2)
+    println(d2)
+
+    for (dec(s, i, d) <- dec findAllIn "for -1.0 to 99 by 3")
+      println("s: "+s+", i: "+i+", d: "+d)
   }
 }
