@@ -23,23 +23,34 @@ object FruitSalad extends Recipe(
   "Stir it all together"
 )
 
-abstract class Database {
-  def allFoods: List[Food]
-  def allRecipes: List[Recipe]
-  def foodNamed(name: String) = allFoods.find(f => f.name == name)
+trait FoodCategories {
   case class FoodCategory(name: String, foods: List[Food])
   def allCategories: List[FoodCategory]
 }
 
-object SimpleDatabase extends Database {
-  def allFoods = List(Apple, Orange, Cream, Sugar)
-  def allRecipes: List[Recipe] = List(FruitSalad)
-  private var categories = List(
-      FoodCategory("fruits", List(Apple, Orange)),
-      FoodCategory("misc", List(Cream, Sugar))
-    )
-  def allCategories = categories
+abstract class Database extends FoodCategories {
+  def allFoods: List[Food]
+  def allRecipes: List[Recipe]
+  def foodNamed(name: String) = allFoods.find(f => f.name == name)
 }
+
+trait SimpleFoods {
+  object Pear extends Food("Pear")
+  def allFoods = List(Apple, Pear)
+  def allCategories = Nil
+}
+
+trait SimpleRecipes {
+  this: SimpleFoods =>
+  object FruitSalad extends Recipe(
+    "fruit salad",
+    List(Apple, Pear),
+    "Mix it all together"
+    )
+  def allRecipes = List(FruitSalad)
+}
+
+object SimpleDatabase extends Database with SimpleFoods with SimpleRecipes
 
 object StudentDatabase extends Database {
   object FrozenFood extends Food("FrozenFood")
