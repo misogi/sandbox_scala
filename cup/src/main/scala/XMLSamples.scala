@@ -24,6 +24,10 @@ object XMLSamples {
 
     val joe = <employee name="Joe" />
     println(joe \ "@name")
+
+    println(proc(<a>apple</a>))
+    println(proc(<b>banana</b>))
+    println(proc(<a>a <em>red</em> apple</a>))
   }
 
   abstract class CCTherm {
@@ -62,5 +66,13 @@ object XMLSamples {
     val purchasePrice = 500
     val condition = 9
   }
+
+  def proc(node: scala.xml.Node): String =
+    node match {
+      case <a>{contents}</a> => "it's an a: "+ contents
+      case <a>{contents @ _*}</a> => "it's an special a: "+ contents
+      case <b>{contents}</b> => "its an b:"+ contents
+      case _ => "its something else"
+    }
 
 }
